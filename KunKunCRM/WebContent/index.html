@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>坤坤客户管理系统</title>
+	<link rel="stylesheet" type="text/css" href="./themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="./themes/icon.css">
+	<script type="text/javascript" src="./js/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/jquery.easyui.min.js"></script>
+	<style type="text/css">
+		.menuA{
+			text-decoration :none;
+		}
+	</style>
+	
+	<script type="text/javascript">
+		$(function(){
+			//点击菜单
+			$(".menuA").click(function(){
+				var contentText = this.innerHTML;
+				var url = this.href;
+				//alert(url);
+				createTab(contentText,url);
+				// 超链接不跳转
+				return false;
+			});
+		});
+		
+		function createTab(contentText,url){
+			// 判断选项卡是否存在
+			var flag = $("#tt").tabs("exists",contentText);
+			if(flag){
+				// 如果已经存在，让其被选中
+				$("#tt").tabs("select",contentText);
+			}else{
+				// 如果不存在,创建新的选项卡
+				$('#tt').tabs('add',{    
+				    title:contentText,    
+				    content:createUrl(url),    
+				    closable:true   
+				}); 
+			} 
+		}
+		
+		function createUrl(url){
+			return "<iframe src='"+url+"' style='width:100%;height:95%;border:none;'></iframe>";
+		}
+	</script>
+</head>
+<body>
+<div id="cc" class="easyui-layout" data-options="fit:true">   
+    <div data-options="region:'north',title:'坤坤客户管理系统',split:true" style="height:100px;"></div>   
+    <div data-options="region:'west',title:'系统菜单',split:true" style="width:200px;">
+    	<div id="aa" class="easyui-accordion" data-options="fit:true">   
+		    <div title="客户管理" data-options="iconCls:'icon-save'" style="overflow:auto;padding:10px;">   
+		    	<a href="customer.html" class="menuA">客户列表</a>
+		    </div>   
+		    <div title="联系人管理" data-options="iconCls:'icon-reload',selected:true" style="padding:10px;">   
+		        <a href="linkman.html" class="menuA">联系人列表</a>
+		    </div>   
+		    <div title="拜访记录管理" data-options="iconCls:'icon-help'">   
+		       <a href="#" class="menuA">拜访记录</a>
+		    </div>   
+		    <div title="统计分析管理" data-options="iconCls:'icon-search'" style="padding:10px;">   
+		        <a href="#" class="menuA">统计分析管理</a>
+		    </div>   
+		    <div title="系统管理" data-options="iconCls:'icon-ok'">   
+		       <a href="#" class="menuA">系统管理</a>
+		    </div> 
+		</div>  
+    </div>   
+    <div data-options="region:'center',title:''" style="padding:5px;background:#eee;">
+    	<div id="tt" class="easyui-tabs" data-options="fit:true">   
+		    <div title="数据显示" style="padding:20px;display:none;">   
+		        数据
+		    </div>   
+		</div> 
+    </div>   
+</div>  
+</body>
+</html>
